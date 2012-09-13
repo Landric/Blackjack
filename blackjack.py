@@ -42,6 +42,7 @@ def printCards(dealer_hand, player_hand, hide_dealer):
 			print c[0]+" ",
 		print
 		print "Total: "+str(calculateHandValue(dealer_hand))
+	print
 	print "###################################"
 	print
 	
@@ -50,6 +51,7 @@ def printCards(dealer_hand, player_hand, hide_dealer):
 		print c[0]+" ",
 	print
 	print "Total: "+str(calculateHandValue(player_hand))
+	print "###################################"
 	print
 	
 def hit():
