@@ -13,12 +13,13 @@ def createDeck(shoes=1):
 		deck.append(("{0}{1}".format("K", s), 10))
 		deck.append(("{0}{1}".format("A", s), 1))
 	
+	new_deck = []
 	for s in range(shoes):
-		deck = deck + list(deck)
+		new_deck = new_deck + list(deck)
 	
-	shuffle(deck)
+	shuffle(new_deck)
 	
-	return deck
+	return new_deck
 
 def calculateHandValue(hand):
 	total = 0
