@@ -1,6 +1,6 @@
 from random import shuffle
 
-def createDeck():
+def createDeck(shoes=1):
 	suits = ["C", "D", "H", "S"]
 	deck = []
 	
@@ -12,6 +12,9 @@ def createDeck():
 		deck.append(("{0}{1}".format("Q", s), 10))
 		deck.append(("{0}{1}".format("K", s), 10))
 		deck.append(("{0}{1}".format("A", s), 1))
+	
+	for s in range(shoes):
+		deck = deck + list(deck)
 	
 	shuffle(deck)
 	
@@ -62,9 +65,17 @@ def hit():
 		answer = raw_input("Please answer h or s: ")
 		print
 	return answer in ["h", "H"]
-		
+	
+def shoes(message):
+	answer = raw_input(message)
+	print
+	try:
+		return int(answer)
+	except ValueError:
+		return shoes("Please enter an integer: ")
+
 def newGame():	
-	deck = createDeck()
+	deck = createDeck(shoes("How many shoes would you like to play with: "))
 	player_hand = []
 	dealer_hand = []
 	for i in range(2):
