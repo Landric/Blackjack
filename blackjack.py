@@ -46,9 +46,7 @@ def printCards(dealer_hand, player_hand, hide_dealer):
 			print c[0]+" ",
 		print
 		print "Total: "+str(calculateHandValue(dealer_hand))
-	print
 	print "###################################"
-	print
 	
 	print "Your hand:"
 	for c in player_hand:
@@ -75,8 +73,26 @@ def shoes(message):
 	except ValueError:
 		return shoes("Please enter an integer: ")
 
-def newGame():	
-	deck = createDeck(shoes("How many shoes would you like to play with: "))
+def newGame():
+	player_cash = 200
+	dealer_cash = 200
+
+	s = shoes("How many shoes would you like to play with: ")
+	
+	while player_cash > 0 and dealer_cash > 0:
+		player_cash, dealer_cash = newRound(createDeck(s),  player_cash, dealer_cash)
+	
+def printCash(player_cash, dealer_cash):
+	print
+	print "###################################"
+	print "Dealer's cash: $"+str(dealer_cash)
+	print "Your cash: $"+str(player_cash)
+	
+def newRound(deck, player_cash, dealer_cash):
+	BET_AMOUNT = 50 #Global bet amount for testing
+
+	printCash(player_cash, dealer_cash)
+	
 	player_hand = []
 	dealer_hand = []
 	for i in range(2):
@@ -86,7 +102,9 @@ def newGame():
 	printCards(dealer_hand, player_hand, True)
 	
 	if calculateHandValue(player_hand) == 21:
-		print "Blackjack! You win!"
+		player_cash = player_cash + BET_AMOUNT
+		dealer_cash = dealer_cash - BET_AMOUNT
+		print "Blackjack!"
 		print
 	else:
 		lose = False
@@ -97,6 +115,8 @@ def newGame():
 			if calculateHandValue(player_hand) > 21:
 				lose = True
 				printCards(dealer_hand, player_hand, False)
+				player_cash = player_cash - BET_AMOUNT
+				dealer_cash = dealer_cash + BET_AMOUNT
 				print "You're bust! Better luck next time!"
 				print
 				break
@@ -111,11 +131,17 @@ def newGame():
 				
 			printCards(dealer_hand, player_hand, False)
 			if 21 >= dealer_hand_value >= player_hand_value:
+				player_cash = player_cash - BET_AMOUNT
+				dealer_cash = dealer_cash + BET_AMOUNT
 				print "The dealer beat you! Better luck next time!"
 			else:
+				player_cash = player_cash + BET_AMOUNT
+				dealer_cash = dealer_cash - BET_AMOUNT
 				print "You win! Well done!"
 			print
-	
+			
+	return player_cash, dealer_cash
+
 def playAgain():
 	accepted_answers = ["y", "Y", "n", "N"]
 	answer = raw_input("Would you like to play again (y/n): ")
