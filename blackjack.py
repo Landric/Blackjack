@@ -81,6 +81,8 @@ def newGame():
 	
 	while player_cash > 0 and dealer_cash > 0:
 		player_cash, dealer_cash = newRound(createDeck(s),  player_cash, dealer_cash)
+		
+	return player_cash > 0
 	
 def printCash(player_cash, dealer_cash):
 	print
@@ -152,8 +154,17 @@ def playAgain():
 	return answer in ["y", "Y"]
 	
 if __name__ == '__main__':
+	
+	games_played = 0
+	games_won = 0
+	
 	play = True
 	while(play):
-		newGame()
+		if(newGame()):
+			games_won = games_won + 1
+		games_played = games_played + 1
+		
+		print "Won {0} of {1} games".format(games_won, games_played)
+		
 		play = playAgain()
 	print "Goodbye!"
