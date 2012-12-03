@@ -5,8 +5,8 @@ def createDeck(shoes=1):
 	deck = []
 	
 	for s in suits:
-		for i in range(9):
-			deck.append(("{0}{1}".format(i+2, s), i+2))
+		for i in range(2, 11):
+			deck.append(("{0}{1}".format(i, s), i))
 		
 		deck.append(("{0}{1}".format("J", s), 10))
 		deck.append(("{0}{1}".format("Q", s), 10))
